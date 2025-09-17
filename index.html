@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello Electron</title>
+  </head>
+  <body>
+    <h1>Hello Electron!</h1>
+    <p>これはElectronで作った最初のアプリです 🎉</p>
+
+    <h2>テキスト入力の練習 - IPC通信</h2>
+    <input type="text" id="txt_ls_textbox" placeholder="ここにテキストを入力">
+    <button id="submit_textbox">送信</button>
+    <p id="result_textbox"></p>
+
+    <script>
+        // 1. テキスト入力の練習
+        const txt_ls_textbox = document.getElementById("txt_ls_textbox");   // テキスト入力の要素を取得
+        const submit_textbox = document.getElementById("submit_textbox");   // 送信ボタンの要素を取得
+        const result_textbox = document.getElementById("result_textbox");   // 結果の要素を取得
+
+        // IPC通信 - ボタンを押したらMainに送信
+        submit_textbox.addEventListener("click", () => {
+          window.electronAPI.greet(txt_ls_textbox.value);
+        });
+
+        // IPC通信 - Mainからの応答を受け取る
+        window.electronAPI.onGreetResponse((message) => {
+            result_textbox.textContent = message;
+        });
+
+    </script>
+  </body>
+</html>
